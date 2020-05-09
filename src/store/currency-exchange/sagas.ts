@@ -1,4 +1,4 @@
-import { all, take, call, put } from 'redux-saga/effects';
+import { all, take, call, put, race, delay } from 'redux-saga/effects';
 import { AxiosResponse } from 'axios';
 
 import * as exchangeRatesApi from 'api/exchange-rates';
@@ -7,10 +7,8 @@ import formatExchangeRatesResponse from 'services/currency-exchange/format-excha
 
 import * as actions from './actions';
 
-export function* getExchangeRateFlow() {
+function* getExchangeRate() {
   while (true) {
-    yield take(actions.getExchangeRates);
-
     try {
       const exchangeRates = yield all([
         yield call(exchangeRatesApi.getExchangeRates, Currencies.EUR),
@@ -23,7 +21,17 @@ export function* getExchangeRateFlow() {
       )
 
       yield put(actions.setExchangeRates(availableExchangeRates));
+      yield delay(10000);
     } catch {}
+  }
+}
+
+function* getExchangeRateFlow() {
+  while (true) {
+    yield take(actions.startExchangeRatesPolling);
+
+    yield call(getExchangeRate);
+    yield race([call(getExchangeRate), take(actions.stopExchangeRatesPolling)] )
   }
 }
 

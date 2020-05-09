@@ -1,14 +1,11 @@
 import { Currencies, ExchangeRates } from 'types';
 
-export default function getExchangeRate({
-  sell,
-  buy,
-  rates,
-}: {
+interface GetExchangeRate {
   sell: Currencies;
   buy: Currencies;
   rates: ExchangeRates;
-}) {
-  const baseCurrencyRates = rates && rates[sell];
-  return baseCurrencyRates && baseCurrencyRates[buy];
+}
+
+export default function getExchangeRate({ sell, buy, rates }: GetExchangeRate) {
+  return rates?.[sell]?.[buy];
 }

@@ -23,7 +23,7 @@ export const defaultState: DefaultState = {
   buy: {
     currency: null,
     amount: null,
-  }
+  },
 };
 
 const reducer = handleActions<DefaultState, any>(
@@ -37,7 +37,7 @@ const reducer = handleActions<DefaultState, any>(
       buy: {
         ...state.buy,
         currency: payload.buy,
-      }
+      },
     }),
     [actions.setExchangeAmount.toString()]: (state, { payload }) => ({
       ...state,
@@ -48,15 +48,16 @@ const reducer = handleActions<DefaultState, any>(
       buy: {
         ...state.buy,
         amount: payload.buy,
-      }
+      },
     }),
     [actions.setExchangeRates.toString()]: (state, { payload }) => ({
       ...state,
       exchangeRates: {
         ...state.exchangeRates,
-        ...payload
+        ...payload,
       },
     }),
+    [actions.clearState.toString()]: () => defaultState,
   },
   defaultState
 );

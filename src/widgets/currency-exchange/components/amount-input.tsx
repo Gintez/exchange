@@ -13,7 +13,8 @@ export const AmountInput = (props: Props) => {
   const { value, handleAmountChange } = props;
 
   function handleInputChange(numberFormatValue: NumberFormatValues) {
-    value !== numberFormatValue.floatValue && handleAmountChange(numberFormatValue.floatValue); // TODO: ADD TEST FOR SAME VALUE HANDLING
+    value !== numberFormatValue.floatValue &&
+      handleAmountChange(numberFormatValue.floatValue);
   }
 
   return (
@@ -28,6 +29,7 @@ export const AmountInput = (props: Props) => {
         thousandSeparator={true}
         decimalScale={2}
         allowNegative={false}
+        variant="outlined"
         placeholder="0"
       />
     </div>

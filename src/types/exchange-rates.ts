@@ -16,7 +16,7 @@ export interface ExchangeAmount {
 }
 
 export type ExchangeRates = {
-  [currency in Currencies]: {
+  [key: string]: {
     [key: string]: number;
   };
 }

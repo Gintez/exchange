@@ -1,6 +1,4 @@
-import { ExchangeRateResponse, CURRENCIES } from 'types';
-
-type AvailableRates = { [key in string]: { [key: string]: number } };
+import { ExchangeRateResponse, CURRENCIES, ExchangeRates } from 'types';
 
 function filterAvailable({ base, rates }: ExchangeRateResponse) {
   return CURRENCIES.reduce(
@@ -12,9 +10,9 @@ function filterAvailable({ base, rates }: ExchangeRateResponse) {
 
 export default function formatExchangeRatesResponse(
   exchangeRates: Array<ExchangeRateResponse>
-) {
+): ExchangeRates {
   return exchangeRates.reduce(
-    (acc: AvailableRates, current: ExchangeRateResponse) => {
+    (acc: ExchangeRates, current: ExchangeRateResponse) => {
       acc[current.base] = filterAvailable(current);
       return acc;
     },

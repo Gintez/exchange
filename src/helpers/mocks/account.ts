@@ -1,6 +1,6 @@
 import { Account, Currencies } from 'types';
 
-export const createAccount = (): Account => ({
+export const createAccount = (val: any = {}): Account => ({
   pockets: [
     {
       currency: Currencies.GBP,
@@ -16,4 +16,10 @@ export const createAccount = (): Account => ({
     }
   ],
   primaryCurrency: Currencies.EUR,
+  ...val,
+})
+
+export const createBalance = () => ({
+  amountFormatted: '£10.00',
+  amount: 100,
 })

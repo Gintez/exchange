@@ -23,6 +23,7 @@ export const CurrencySelect = (props: Props) => {
     <Select
       onChange={handleChange}
       value={selectedCurrency || ''}
+      variant="outlined"
       {...selectProps}
     >
       {CURRENCIES.map(currency => (

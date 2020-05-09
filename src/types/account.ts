@@ -11,3 +11,8 @@ export interface Account {
   pockets: AccountPockets;
   primaryCurrency: Currencies;
 }
+
+export interface Balance {
+  amountFormatted?: string;
+  amount?: number;
+}

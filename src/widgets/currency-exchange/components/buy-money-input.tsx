@@ -1,7 +1,14 @@
 import React from 'react';
 
-import { Money, Currencies, ExchangeAmount, ExchangeAction, ExchangePair } from 'types';
-import { calculateSellAmount} from 'services/currency-exchange/calculate-amount';
+import {
+  Money,
+  Currencies,
+  ExchangeAmount,
+  ExchangeAction,
+  ExchangePair,
+  Balance,
+} from 'types';
+import { calculateSellAmount } from 'services/currency-exchange/calculate-amount';
 
 import MoneyInput from './money-input';
 
@@ -10,12 +17,19 @@ interface OwnProps {
   buyMoney: Money;
   onCurrencyChange: (changeCurrency: Partial<ExchangePair>) => void;
   onAmountChange: (exchangeAmount: ExchangeAmount) => void;
+  balance: Balance;
 }
 
 type Props = OwnProps;
 
 export const BuyMoneyInput = (props: Props) => {
-  const { buyMoney, exchangeRate, onCurrencyChange, onAmountChange } = props;
+  const {
+    buyMoney,
+    exchangeRate,
+    onCurrencyChange,
+    onAmountChange,
+    balance,
+  } = props;
 
   function handleBuyCurrencyChange(currency: Currencies) {
     onCurrencyChange({ [ExchangeAction.buy]: currency });
@@ -34,6 +48,7 @@ export const BuyMoneyInput = (props: Props) => {
       handleCurrencyChange={handleBuyCurrencyChange}
       handleAmountChange={handleBuyAmountChange}
       amount={buyMoney?.amount}
+      balance={balance}
     />
   );
 };

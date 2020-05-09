@@ -1,19 +1,27 @@
 import { ExchangePair } from 'types';
 
+interface ComposeExchangePair {
+  currencyChange: Partial<ExchangePair>;
+  currentCurrencyPair: ExchangePair;
+}
+
 export default function composeExchangePair({
   currencyChange,
   currentCurrencyPair,
-}: {
-  currencyChange: Partial<ExchangePair>;
-  currentCurrencyPair: ExchangePair;
-}) {
+}: ComposeExchangePair) {
   let buy = currencyChange.buy;
   let sell = currencyChange.sell;
 
   if (buy) {
-    sell = currentCurrencyPair.sell === buy ? currentCurrencyPair.buy : currentCurrencyPair.sell;
+    sell =
+      currentCurrencyPair.sell === buy
+        ? currentCurrencyPair.buy
+        : currentCurrencyPair.sell;
   } else {
-    buy = currentCurrencyPair.buy === sell ? currentCurrencyPair.sell : currentCurrencyPair.buy;
+    buy =
+      currentCurrencyPair.buy === sell
+        ? currentCurrencyPair.sell
+        : currentCurrencyPair.buy;
   }
 
   return { buy, sell };

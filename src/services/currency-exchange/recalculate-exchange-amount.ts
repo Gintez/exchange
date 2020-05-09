@@ -11,7 +11,7 @@ export default function recalculateExchangeAmount({
   exchangeRate,
   exchangeAmount,
 }: RecalculateExchangeAmount) {
-  const sell = exchangeAmount.sell;
+  const sell = exchangeAmount?.sell;
 
   return { buy: calculateBuyAmount({ exchangeRate, amount: sell }), sell };
 }

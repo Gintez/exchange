@@ -25,5 +25,13 @@ describe('<AmountInput />', () => {
   
       expect(handleAmountChange).toBeCalledWith(100.5);
     });
+
+    it('does not calls handle amount if new amount is same as previous', () => {
+      const { queryByTestId } = wrapper;
+
+      fireEvent.change(queryByTestId('amount-input'), { target: { value } })
+  
+      expect(handleAmountChange).not.toBeCalled();
+    });
   })
 })

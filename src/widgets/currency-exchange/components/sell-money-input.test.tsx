@@ -36,6 +36,7 @@ describe('<SellMoneyInput />', () => {
         onCurrencyChange={onCurrencyChange}
         onAmountChange={onAmountChange}
         exchangeRate={exchangeRate}
+        balance={{}}
       />
     );
   });
