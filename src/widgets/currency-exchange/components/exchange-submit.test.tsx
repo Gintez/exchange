@@ -12,7 +12,7 @@ describe('<ExchangeSubmit />', () => {
     currency: Currencies.EUR,
     amount: 15,
   };
-  const sellMoney = {
+  let sellMoney = {
     currency: Currencies.GBP,
     amount: 15,
   };
@@ -34,6 +34,7 @@ describe('<ExchangeSubmit />', () => {
           buyMoney={buyMoney}
           onSubmit={onSubmit}
           sellMoney={sellMoney}
+          balance={{}}
         />
       );
 
@@ -69,6 +70,7 @@ describe('<ExchangeSubmit />', () => {
           buyMoney={buyMoney}
           onSubmit={onSubmit}
           sellMoney={sellMoney}
+          balance={{}}
         />
       );
     })
@@ -92,6 +94,10 @@ describe('<ExchangeSubmit />', () => {
 
   describe('when there are buy and sell money', () => {
     let wrapper: any;
+    const balance = {
+      amount: 15,
+      formattedAmount: '£15.00',
+    };
 
     beforeEach(() => {
       wrapper = renderWithProviders(
@@ -99,6 +105,7 @@ describe('<ExchangeSubmit />', () => {
           buyMoney={buyMoney}
           onSubmit={onSubmit}
           sellMoney={sellMoney}
+          balance={balance}
         />
       );
     })
@@ -110,6 +117,37 @@ describe('<ExchangeSubmit />', () => {
 
         expect(onSubmit).toBeCalledWith({ buyMoney, sellMoney });
       })
+    })
+  })
+
+
+  describe('when balance is exceeded', () => {
+    let wrapper: any;
+    const balance = {
+      amount: 15,
+      formattedAmount: '£15.00',
+    };
+    const sellMoney = {
+      currency: Currencies.GBP,
+      amount: 15000,
+    };
+
+    beforeEach(() => {
+      wrapper = renderWithProviders(
+        <ExchangeSubmit
+          buyMoney={buyMoney}
+          onSubmit={onSubmit}
+          sellMoney={sellMoney}
+          balance={balance}
+        />
+      );
+    })
+
+    it('button is disabled', () => {
+      const { queryByTestId } = wrapper;
+      const subject = queryByTestId('submit-exchange-btn');
+
+      expect(subject).toBeDisabled();
     })
   })
 });

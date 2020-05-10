@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 
-import { Money } from 'types';
+import { Money, Balance } from 'types';
 
 interface OwnProps {
   sellMoney: Money;
@@ -13,18 +13,19 @@ interface OwnProps {
     buyMoney: Money;
     sellMoney: Money;
   }) => void;
+  balance: Balance;
 }
 
 type Props = OwnProps;
 
 export const ExchangeSubmit = (props: Props) => {
-  const { buyMoney, sellMoney, onSubmit } = props;
+  const { buyMoney, sellMoney, onSubmit, balance } = props;
 
   function handleExchangeSubmit() {
     onSubmit({ buyMoney, sellMoney });
   }
 
-  const isDisabled = !buyMoney?.amount || !sellMoney?.amount;
+  const isDisabled = !buyMoney.amount || !sellMoney.amount || balance.amount < sellMoney.amount;
 
   return (
     <Button

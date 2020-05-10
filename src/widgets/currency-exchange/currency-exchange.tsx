@@ -87,6 +87,8 @@ export const CurrencyExchange = (props: Props) => {
   const exchangeAmount = { buy: buyMoney?.amount, sell: sellMoney?.amount };
   const getBalance = getBalanceFor.bind(null, account);
   const classes = useStyles();
+  const sellMoneyBalance = getBalance(sellMoney?.currency);
+  const buyMoneyBalance = getBalance(buyMoney?.currency);
 
   useEffect(() => {
     actions.currencyExchange.startExchangeRatesPolling();
@@ -149,7 +151,7 @@ export const CurrencyExchange = (props: Props) => {
                 sellMoney={sellMoney}
                 onCurrencyChange={handleCurrencyChange}
                 onAmountChange={handleAmountChange}
-                balance={getBalance(sellMoney?.currency)}
+                balance={sellMoneyBalance}
               />
             </div>
             <BuyMoneyInput
@@ -157,7 +159,7 @@ export const CurrencyExchange = (props: Props) => {
               buyMoney={buyMoney}
               onCurrencyChange={handleCurrencyChange}
               onAmountChange={handleAmountChange}
-              balance={getBalance(buyMoney?.currency)}
+              balance={buyMoneyBalance}
             />
           </div>
           <Box mt={2}>
@@ -165,6 +167,7 @@ export const CurrencyExchange = (props: Props) => {
               onSubmit={handleExchangeSubmit}
               sellMoney={sellMoney}
               buyMoney={buyMoney}
+              balance={sellMoneyBalance}
             />
           </Box>
         </div>
