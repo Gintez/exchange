@@ -17,21 +17,25 @@ describe('<AmountInput />', () => {
     );
   })
 
-  describe('when input change is made', () => {
-    it('calls handle amount with a new amount value', () => {
-      const { queryByTestId } = wrapper;
-
-      fireEvent.change(queryByTestId('amount-input'), { target: { value: '100.5' } })
+  describe('when input changes', () => {
+    describe('when new amount value', () => {
+      it('calls handle amount with a new amount value', () => {
+        const { queryByTestId } = wrapper;
   
-      expect(handleAmountChange).toBeCalledWith(100.5);
-    });
+        fireEvent.change(queryByTestId('amount-input'), { target: { value: '100.5' } })
+    
+        expect(handleAmountChange).toBeCalledWith(100.5);
+      });
+    })
 
-    it('does not calls handle amount if new amount is same as previous', () => {
-      const { queryByTestId } = wrapper;
-
-      fireEvent.change(queryByTestId('amount-input'), { target: { value } })
+    describe('when input value is the same as previous', () => {
+      it('does not call handle amount', () => {
+        const { queryByTestId } = wrapper;
   
-      expect(handleAmountChange).not.toBeCalled();
-    });
+        fireEvent.change(queryByTestId('amount-input'), { target: { value } })
+    
+        expect(handleAmountChange).not.toBeCalled();
+      });
+    })
   })
 })

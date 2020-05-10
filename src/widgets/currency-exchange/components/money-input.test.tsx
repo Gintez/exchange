@@ -16,39 +16,40 @@ describe('<MoneyInput />', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+    wrapper = renderWithProviders(
+      <MoneyInput
+        currency={currency}
+        handleCurrencyChange={handleCurrencyChange}
+        amount={amount}
+        handleAmountChange={handleAmountChange}
+        balance={balance}
+      />
+    );
   });
 
-  describe('when sell amount does not exceed balance', () => {
-    beforeEach(() => {
-      wrapper = renderWithProviders(
-        <MoneyInput
-          currency={currency}
-          handleCurrencyChange={handleCurrencyChange}
-          amount={amount}
-          handleAmountChange={handleAmountChange}
-          balance={balance}
-        />
-      );
-    });
-  
-    it('renders currency select input', () => {
-      const { queryByTestId } = wrapper;
-      expect(queryByTestId('money-input--currency-select')).toBeInTheDocument();
-    })
-  
-    it('renders amount input', () => {
-      const { queryByTestId } = wrapper;
-      expect(queryByTestId('money-input--amount-input')).toBeInTheDocument();
-    })
-  
-    it('renders balance', () => {
-      const { getByText } = wrapper;
-      expect(getByText(`Balance: ${balance.amountFormatted}`)).toBeInTheDocument();
-    })
+  it('shows currency select input', () => {
+    const { queryByTestId } = wrapper;
+    const subject = queryByTestId('money-input--currency-select');
+
+    expect(subject).toBeInTheDocument();
   })
 
-  describe('when balance of sell money is exceeded and showExceededBalance', () => {
-    it('should show exceeded balance text', () => {
+  it('shows amount input', () => {
+    const { queryByTestId } = wrapper;
+    const subject = queryByTestId('money-input--amount-input');
+
+    expect(subject).toBeInTheDocument();
+  })
+
+  it('shows balance', () => {
+    const { getByText } = wrapper;
+    const subject = getByText(`Balance: ${balance.amountFormatted}`);
+
+    expect(subject).toBeInTheDocument();
+  })
+
+  describe('when balance of sell money is exceeded and should inform about it', () => {
+    it('shows exceeded balance text', () => {
       const { getByText } = renderWithProviders(
         <MoneyInput
           currency={currency}
@@ -59,7 +60,9 @@ describe('<MoneyInput />', () => {
           showExceededBalance
         />
       );
-      expect(getByText('exceeds balance')).toBeInTheDocument();
+      const subject = getByText('exceeds balance');
+
+      expect(subject).toBeInTheDocument();
     })
   })
 });

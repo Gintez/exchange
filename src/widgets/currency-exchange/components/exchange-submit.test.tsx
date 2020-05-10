@@ -39,16 +39,20 @@ describe('<ExchangeSubmit />', () => {
 
     })
 
-    it('button is disabled', () => {
+    it('submit button is disabled', () => {
       const { queryByTestId } = wrapper;
+      const subject = queryByTestId('submit-exchange-btn');
 
-      expect(queryByTestId('submit-exchange-btn')).toBeDisabled();
+      expect(subject).toBeDisabled();
     })
 
-    it('does not call on submit on click', () => {
-      const { queryByTestId } = wrapper;
-      fireEvent.click(queryByTestId('submit-exchange-btn'));
-      expect(onSubmit).not.toBeCalled();
+    describe('on click', () => {
+      it('does not submit', () => {
+        const { queryByTestId } = wrapper;
+        fireEvent.click(queryByTestId('submit-exchange-btn'));
+  
+        expect(onSubmit).not.toBeCalled();
+      })
     })
   })
 
@@ -71,29 +75,41 @@ describe('<ExchangeSubmit />', () => {
 
     it('button is disabled', () => {
       const { queryByTestId } = wrapper;
-      expect(queryByTestId('submit-exchange-btn')).toBeDisabled();
+      const subject = queryByTestId('submit-exchange-btn');
+
+      expect(subject).toBeDisabled();
     })
 
-    it('does not call on submit on click', () => {
-      const { queryByTestId } = wrapper;
-      fireEvent.click(queryByTestId('submit-exchange-btn'));
-      expect(onSubmit).not.toBeCalled();
+    describe('on click', () => {
+      it('does not submit', () => {
+        const { queryByTestId } = wrapper;
+        fireEvent.click(queryByTestId('submit-exchange-btn'));
+
+        expect(onSubmit).not.toBeCalled();
+      })
     })
   })
 
-  describe('when there is buy and sell amount money', () => {
-    it('on click calls onSubmit with sell and buy', () => {
+  describe('when there are buy and sell money', () => {
+    let wrapper: any;
 
-      const { queryByTestId } = renderWithProviders(
+    beforeEach(() => {
+      wrapper = renderWithProviders(
         <ExchangeSubmit
           buyMoney={buyMoney}
           onSubmit={onSubmit}
           sellMoney={sellMoney}
         />
       );
+    })
 
-      fireEvent.click(queryByTestId('submit-exchange-btn'));
-      expect(onSubmit).toBeCalledWith({ buyMoney, sellMoney });
+    describe('on click', () => {
+      it('submits sell and buy values', () => {
+        const { queryByTestId } = wrapper;
+        fireEvent.click(queryByTestId('submit-exchange-btn'));
+
+        expect(onSubmit).toBeCalledWith({ buyMoney, sellMoney });
+      })
     })
   })
 });

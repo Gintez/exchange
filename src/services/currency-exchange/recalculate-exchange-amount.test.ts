@@ -12,6 +12,7 @@ describe('recalculateExchangeAmount', () => {
       exchangeRate,
       exchangeAmount,
     });
+
     expect(subject.sell).toBe(exchangeAmount.sell);
   });
 
@@ -20,6 +21,7 @@ describe('recalculateExchangeAmount', () => {
       exchangeRate,
       exchangeAmount,
     });
+
     expect(subject.buy).not.toBe(exchangeAmount.buy);
   });
 });

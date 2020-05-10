@@ -41,8 +41,8 @@ describe('<SellMoneyInput />', () => {
     );
   });
 
-  describe('when sell amount changes', () => {
-    it('calls on amount change with new calculated exchange amount', () => {
+  describe('when amount changes', () => {
+    it('recalculates exchange amount', () => {
       const { queryByTestId } = wrapper;
 
       fireEvent.change(queryByTestId('amount-input'), {
@@ -56,8 +56,8 @@ describe('<SellMoneyInput />', () => {
     });
   });
 
-  describe('when sell currency changes', () => {
-    it('calls on currency change with sell currency change', () => {
+  describe('when currency changes', () => {
+    it('calls on currency change with the change', () => {
       const { queryByTestId } = wrapper;
       fireEvent.change(queryByTestId('currency-select'), { target: { value: 'USD' } })
   

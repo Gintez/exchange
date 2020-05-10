@@ -12,7 +12,7 @@ describe('getBalance', () => {
     });
 
     it('returns no amount', () => {
-      expect(subject.amountFormatted).toBe(undefined);
+      expect(subject.amount).toBe(undefined);
     });
 
     it('returns no formatted amount', () => {
@@ -28,7 +28,7 @@ describe('getBalance', () => {
     });
 
     it('returns no amount', () => {
-      expect(subject.amountFormatted).toBe(undefined);
+      expect(subject.amount).toBe(undefined);
     });
 
     it('returns no formatted amount', () => {
@@ -44,7 +44,7 @@ describe('getBalance', () => {
     });
 
     it('returns no amount', () => {
-      expect(subject.amountFormatted).toBe(undefined);
+      expect(subject.amount).toBe(undefined);
     });
 
     it('returns no formatted amount', () => {
@@ -53,7 +53,7 @@ describe('getBalance', () => {
   });
 
   describe('when currency does have a pocket', () => {
-    describe('when the amount is more than 0', () => {
+    describe('when the amount > 0', () => {
       let subject: any;
 
       beforeEach(() => {
@@ -69,7 +69,7 @@ describe('getBalance', () => {
       });
     });
 
-    describe('when there the amount is 0', () => {
+    describe('when there the amount = 0', () => {
       let subject: any;
       const account = createAccount({
         pockets: [

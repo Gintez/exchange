@@ -58,12 +58,16 @@ describe('<CurrencyExchange />', () => {
   });
 
   describe('on initial load', () => {
-    it('calls for exchange rates', () => {
-      expect(actions.currencyExchange.startExchangeRatesPolling).toBeCalled();
+    it('gets exchange rates', () => {
+      const subject = actions.currencyExchange.startExchangeRatesPolling;
+
+      expect(subject).toBeCalled();
     });
 
     it('sets initial exchange pair', () => {
-      expect(actions.currencyExchange.setExchangePair).toBeCalledWith({
+      const subject = actions.currencyExchange.setExchangePair;
+
+      expect(subject).toBeCalledWith({
         sell: 'EUR',
         buy: 'GBP',
       });
@@ -78,14 +82,16 @@ describe('<CurrencyExchange />', () => {
       });
     });
 
-    it('sets correct new exchange pair', () => {
-      expect(
-        actions.currencyExchange.setExchangePair.mock.calls[1][0]
-      ).toMatchObject({ buy: 'EUR', sell: 'USD' });
+    it('sets new correct exchange pair', () => {
+      const subject = actions.currencyExchange.setExchangePair.mock.calls[1][0];
+
+      expect(subject).toMatchObject({ buy: 'EUR', sell: 'USD' });
     });
 
     it('sets recalculated exchange amount', () => {
-      expect(actions.currencyExchange.setExchangeAmount).toBeCalledWith({
+      const subject = actions.currencyExchange.setExchangeAmount;
+
+      expect(subject).toBeCalledWith({
         buy: 7.56,
         sell: 1,
       });
@@ -101,13 +107,15 @@ describe('<CurrencyExchange />', () => {
     });
 
     it('sets correct new exchange pair', () => {
-      expect(
-        actions.currencyExchange.setExchangePair.mock.calls[1][0]
-      ).toMatchObject({ sell: 'EUR', buy: 'USD' });
+      const subject = actions.currencyExchange.setExchangePair.mock.calls[1][0];
+
+      expect(subject).toMatchObject({ sell: 'EUR', buy: 'USD' });
     });
 
     it('sets recalculated exchange amount', () => {
-      expect(actions.currencyExchange.setExchangeAmount).toBeCalledWith({
+      const subject = actions.currencyExchange.setExchangeAmount;
+
+      expect(subject).toBeCalledWith({
         buy: 1.08,
         sell: 1,
       });
@@ -115,13 +123,17 @@ describe('<CurrencyExchange />', () => {
   });
 
   describe('on sell amount change', () => {
-    it('sets correct new exchange amount', () => {
+    beforeEach(() => {
       const { queryAllByTestId } = wrapper;
       fireEvent.change(queryAllByTestId('amount-input')[0], {
         target: { value: '100.5' },
       });
+    });
 
-      expect(actions.currencyExchange.setExchangeAmount).toBeCalledWith({
+    it('sets correct new exchange amount', () => {
+      const subject = actions.currencyExchange.setExchangeAmount;
+
+      expect(subject).toBeCalledWith({
         sell: 100.5,
         buy: expect.any(Number),
       });
@@ -129,13 +141,18 @@ describe('<CurrencyExchange />', () => {
   });
 
   describe('on buy amount change', () => {
-    it('sets correct new exchange amount', () => {
+    beforeEach(() => {
       const { queryAllByTestId } = wrapper;
+
       fireEvent.change(queryAllByTestId('amount-input')[1], {
         target: { value: '100.5' },
       });
+    });
 
-      expect(actions.currencyExchange.setExchangeAmount).toBeCalledWith({
+    it('sets correct new exchange amount', () => {
+      const subject = actions.currencyExchange.setExchangeAmount;
+
+      expect(subject).toBeCalledWith({
         buy: 100.5,
         sell: expect.any(Number),
       });
@@ -146,14 +163,17 @@ describe('<CurrencyExchange />', () => {
     beforeEach(() => {
       wrapper.unmount();
     });
-    it('resets exchange rate state', () => {
-      expect(actions.currencyExchange.clearState).toBeCalledTimes(1);
+
+    it('resets exchange rates state', () => {
+      const subject = actions.currencyExchange.clearState;
+
+      expect(subject).toBeCalledTimes(1);
     });
 
-    it('resets exchange rate state', () => {
-      expect(actions.currencyExchange.stopExchangeRatesPolling).toBeCalledTimes(
-        1
-      );
+    it('stops exchange rate polling', () => {
+      const subject = actions.currencyExchange.stopExchangeRatesPolling;
+
+      expect(subject).toBeCalledTimes(1);
     });
   });
 });

@@ -6,7 +6,7 @@ import getExchangeRate from './get-exchange-rate';
 
 describe('getExchangeRate', () => {
   describe('when no rates are provided', () => {
-    it('returns undefined', () => {
+    it('returns empty value', () => {
       const subject = getExchangeRate({
         buy: Currencies.EUR,
         sell: Currencies.GBP,
